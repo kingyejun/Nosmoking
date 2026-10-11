@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>김휘민의 금연 도전기</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🫁</text></svg>">
+<meta name="theme-color" content="#EAF4F7">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=IBM+Plex+Sans+KR:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#EAF4F7; --paper:#FFFFFF; --ink:#12303F; --muted:#5B7886; --line:#CFE1E8;
+  --teal:#1C8C8C; --teal-d:#136B6B; --teal-soft:#D3EEEE; --sun:#F5A623; --coral:#E5533D; --ok:#2E9E6B;
+  --display:'Do Hyeon','IBM Plex Sans KR',sans-serif; --body:'IBM Plex Sans KR',system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){--bg:#0D1E27;--paper:#142B36;--ink:#E6F2F5;--muted:#92AEBA;--line:#24424F;--teal:#4CC3C0;--teal-d:#7DDAD6;--teal-soft:#1B3F46;--sun:#FFC04D;--coral:#FF7A63;--ok:#59C990}
+}
+:root[data-theme="dark"]{--bg:#0D1E27;--paper:#142B36;--ink:#E6F2F5;--muted:#92AEBA;--line:#24424F;--teal:#4CC3C0;--teal-d:#7DDAD6;--teal-soft:#1B3F46;--sun:#FFC04D;--coral:#FF7A63;--ok:#59C990}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{height:100%}
+body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;
+  padding:env(safe-area-inset-top,0px) 0 calc(150px + env(safe-area-inset-bottom,0px))}
+button,input,textarea,select{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--sun);outline-offset:2px;border-radius:8px}
+.wrap{max-width:560px;margin:0 auto;padding:0 18px}
+header.top{padding:18px 0 4px;display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+header.top h1{font-family:var(--display);font-weight:400;font-size:22px;margin:0;letter-spacing:.01em}
+header.top span{color:var(--muted);font-size:13px}
+.tab{display:none}.tab.on{display:block}
+h2{font-family:var(--display);font-weight:400;font-size:22px;margin:30px 0 10px}
+h3{font-size:15px;margin:0 0 6px}
+p{margin:0 0 10px}
+.muted{color:var(--muted);font-size:14px}
+.small{font-size:13px}
+
+/* hero */
+.hero{text-align:center;padding:8px 0 4px}
+.hero .who{margin:6px 0 2px;color:var(--muted);font-size:15px}
+.ring{position:relative;width:min(78vw,300px);aspect-ratio:1;margin:6px auto 0}
+.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring .track{stroke:var(--line)}
+.ring .bar{stroke:var(--teal);transition:stroke-dashoffset .9s linear}
+.ring .in{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.days{font-family:var(--display);line-height:1}
+.days b{font-weight:400;font-size:84px;letter-spacing:-.02em}
+.days span{font-size:26px;margin-left:4px}
+.clock{font-family:var(--display);font-size:26px;color:var(--teal-d);letter-spacing:.06em;margin-top:6px;font-variant-numeric:tabular-nums}
+.next{margin:12px auto 0;max-width:36ch;font-size:14px;color:var(--muted)}
+.next b{color:var(--ink);font-weight:600}
+
+/* ledger */
+.ledger{margin:22px 0 0;border-top:2px solid var(--ink)}
+.ledger div{display:flex;justify-content:space-between;align-items:baseline;padding:11px 2px;border-bottom:1px solid var(--line)}
+.ledger dt{color:var(--muted);font-size:14px}
+.ledger dd{margin:0;font-family:var(--display);font-size:24px;font-variant-numeric:tabular-nums}
+.ledger{display:block}
+.ledger dl{margin:0}
+
+.goal{margin-top:18px}
+.meter{height:12px;border-radius:99px;background:var(--line);overflow:hidden;margin:6px 0 4px}
+.meter i{display:block;height:100%;background:var(--sun);border-radius:99px;transition:width .6s}
+
+.say{margin-top:22px;padding:16px 18px;background:var(--teal-soft);border-radius:18px 18px 18px 4px}
+.say p{margin:0}
+.say .from{margin-top:8px;font-size:13px;color:var(--muted)}
+
+.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.btn{border:0;border-radius:12px;padding:12px 16px;background:var(--teal);color:#fff;font-weight:600}
+[data-theme="dark"] .btn,:root:not([data-theme="light"]) .btn{color:#06222A}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+.btn.danger{background:var(--coral);color:#fff}
+.btn.sm{padding:7px 12px;font-size:14px;border-radius:10px}
+.btn:active{transform:translateY(1px)}
+
+/* timeline */
+.tl{list-style:none;margin:0;padding:0 0 0 22px;border-left:3px solid var(--line)}
+.tl li{position:relative;padding:0 0 22px 14px}
+.tl li::before{content:"";position:absolute;left:-31px;top:4px;width:15px;height:15px;border-radius:50%;background:var(--bg);border:3px solid var(--line)}
+.tl li.done::before{background:var(--teal);border-color:var(--teal)}
+.tl li.cur::before{border-color:var(--sun);background:var(--sun)}
+.tl .t{font-family:var(--display);font-size:20px}
+.tl li.future .t{color:var(--muted)}
+.tl .meter{height:7px;margin:6px 0 0}
+.tl .meter i{background:var(--teal)}
+
+.badges{display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:10px}
+.badge{border:1.5px solid var(--line);border-radius:14px;padding:12px 8px;text-align:center;background:var(--paper)}
+.badge .e{font-size:30px;filter:grayscale(1);opacity:.35}
+.badge.on{border-color:var(--sun)}
+.badge.on .e{filter:none;opacity:1}
+.badge b{display:block;font-size:13px;margin-top:2px}
+.badge small{display:block;color:var(--muted);font-size:11px;line-height:1.3}
+
+/* forms */
+.panel{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:16px}
+label.f{display:block;margin:0 0 14px;font-size:14px;font-weight:500}
+label.f input,label.f textarea,label.f select{display:block;width:100%;margin-top:5px;padding:10px 12px;border-radius:10px;border:1.5px solid var(--line);background:var(--bg);font-weight:400}
+textarea{resize:vertical;min-height:70px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1.5px solid var(--line);background:var(--paper);border-radius:99px;padding:6px 13px;font-size:14px}
+.chip.on{background:var(--teal);border-color:var(--teal);color:#fff}
+[data-theme="dark"] .chip.on,:root:not([data-theme="light"]) .chip.on{color:#06222A}
+.moods{display:flex;gap:8px}
+.moods button{flex:1;font-size:26px;padding:8px 0;border:1.5px solid var(--line);background:var(--paper);border-radius:12px}
+.moods button.on{border-color:var(--teal);background:var(--teal-soft)}
+.step{display:flex;align-items:center;gap:14px}
+.step b{font-family:var(--display);font-size:28px;min-width:2ch;text-align:center;font-weight:400}
+.step button{width:40px;height:40px;border-radius:50%;border:1.5px solid var(--line);background:var(--paper);font-size:20px}
+
+.strip{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.day{aspect-ratio:1;border-radius:10px;border:1.5px solid var(--line);display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:12px;color:var(--muted);background:var(--paper)}
+.day .m{font-size:18px;line-height:1}
+.day.today{border-color:var(--teal)}
+.day.slip{border-color:var(--coral)}
+.day.pre{opacity:.4}
+
+.kv{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.kv div{border:1px solid var(--line);border-radius:14px;padding:12px;background:var(--paper)}
+.kv b{display:block;font-family:var(--display);font-size:26px;font-weight:400}
+.kv span{font-size:13px;color:var(--muted)}
+
+.list{list-style:none;margin:0;padding:0}
+.list li{display:flex;gap:10px;justify-content:space-between;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--line)}
+.list li small{display:block;color:var(--muted)}
+.x{border:0;background:none;color:var(--muted);font-size:18px;padding:0 4px}
+
+details{border-bottom:1px solid var(--line);padding:10px 0}
+summary{cursor:pointer;font-weight:600}
+details p{margin:8px 0 2px;color:var(--muted);font-size:15px}
+.help a{color:var(--teal-d);font-weight:600}
+
+/* nav & sos */
+nav.bar{position:fixed;left:0;right:0;bottom:0;background:var(--paper);border-top:1px solid var(--line);display:flex;justify-content:center;padding-bottom:env(safe-area-inset-bottom,0px);z-index:20}
+nav.bar .in{display:flex;width:100%;max-width:560px}
+nav.bar button{flex:1;border:0;background:none;padding:9px 0 8px;font-size:11px;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:1px}
+nav.bar button span{font-size:21px;line-height:1.1}
+nav.bar button.on{color:var(--teal-d);font-weight:600}
+.sosbtn{position:fixed;right:16px;bottom:calc(74px + env(safe-area-inset-bottom,0px));z-index:21;border:0;border-radius:99px;background:var(--coral);color:#fff;font-weight:600;padding:13px 20px;box-shadow:0 6px 18px rgba(229,83,61,.45)}
+
+.overlay{position:fixed;inset:0;z-index:50;background:var(--bg);display:none;overflow:auto;padding:calc(env(safe-area-inset-top,0px) + 18px) 0 calc(24px + env(safe-area-inset-bottom,0px))}
+.overlay.on{display:block}
+.sos-t{font-family:var(--display);font-size:50px;text-align:center;margin:0;font-variant-numeric:tabular-nums}
+.breath{width:170px;height:170px;margin:14px auto;border-radius:50%;background:var(--teal-soft);border:4px solid var(--teal);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:24px;animation:breath 10s ease-in-out infinite}
+@keyframes breath{0%{transform:scale(.62)}40%{transform:scale(1)}100%{transform:scale(.62)}}
+@media (prefers-reduced-motion:reduce){.breath{animation:none}.ring .bar,.meter i{transition:none}}
+.card2{border-left:5px solid var(--sun);background:var(--paper);padding:12px 14px;border-radius:0 12px 12px 0;margin:12px 0}
+
+.toast{position:fixed;left:50%;bottom:calc(130px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:11px 18px;border-radius:12px;z-index:90;max-width:88vw;font-size:14px;text-align:center;display:none}
+.toast.on{display:block}
+.modal{position:fixed;inset:0;background:rgba(10,25,32,.55);z-index:80;display:none;align-items:center;justify-content:center;padding:18px}
+.modal.on{display:flex}
+.modal .box{background:var(--paper);border-radius:18px;padding:20px;max-width:440px;width:100%;max-height:88vh;overflow:auto}
+.modal h3{font-family:var(--display);font-weight:400;font-size:22px}
+.modal .row{justify-content:flex-end}
+.foot{margin:36px 0 0;text-align:center;color:var(--muted);font-size:12px}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <h1>김휘민의 금연 도전기</h1>
+    <span id="top-sub"></span>
+  </header>
+
+  <!-- 홈 -->
+  <section id="tab-home" class="tab on">
+    <div class="hero">
+      <p class="who" id="h-who">마지막 담배 이후</p>
+      <div class="ring">
+        <svg viewBox="0 0 220 220" aria-hidden="true">
+          <circle class="track" cx="110" cy="110" r="96" fill="none" stroke-width="12"/>
+          <circle class="bar" id="ring-bar" cx="110" cy="110" r="96" fill="none" stroke-width="12" stroke-linecap="round" stroke-dasharray="603.19" stroke-dashoffset="603.19"/>
+        </svg>
+        <div class="in">
+          <div class="days"><b id="d-days">0</b><span>일째</span></div>
+          <div class="clock" id="d-clock">00:00:00</div>
+        </div>
+      </div>
+      <p class="next" id="h-next"></p>
+    </div>
+
+    <dl class="ledger" id="ledger"></dl>
+    <div class="goal" id="goal"></div>
+
+    <div class="say">
+      <p id="quote"></p>
+      <p class="from" id="cheer"></p>
+    </div>
+
+    <div class="row">
+      <button class="btn ghost sm" data-act="share">친구들에게 공유하기</button>
+      <button class="btn ghost sm" data-act="slip">실수로 피웠어요</button>
+    </div>
+  </section>
+
+  <!-- 건강 -->
+  <section id="tab-health" class="tab">
+    <h2>내 몸이 회복되는 중</h2>
+    <p class="muted">일반적으로 알려진 회복 시점이에요. 개인차가 있어요.</p>
+    <ul class="tl" id="timeline"></ul>
+    <h2>획득한 배지</h2>
+    <div class="badges" id="badges"></div>
+  </section>
+
+  <!-- 기록 -->
+  <section id="tab-log" class="tab">
+    <h2>오늘 체크인</h2>
+    <div class="panel" id="checkin"></div>
+    <h2>최근 2주</h2>
+    <div class="strip" id="strip"></div>
+    <h2>나의 기록</h2>
+    <div class="kv" id="stats"></div>
+    <h2>언제 가장 힘든가요</h2>
+    <div id="triggers" class="muted"></div>
+    <h2>실수 기록</h2>
+    <ul class="list" id="slips"></ul>
+  </section>
+
+  <!-- 마음 -->
+  <section id="tab-mind" class="tab">
+    <h2>내가 끊는 이유</h2>
+    <div class="panel">
+      <ul class="list" id="reasons"></ul>
+      <div class="row" style="margin-top:12px">
+        <input id="reason-in" placeholder="예: 아침에 개운하게 일어나고 싶다" style="flex:1;min-width:0;padding:10px 12px;border-radius:10px;border:1.5px solid var(--line);background:var(--bg)">
+        <button class="btn sm" data-act="addReason">추가</button>
+      </div>
+    </div>
+
+    <h2>친구들의 응원</h2>
+    <div class="panel">
+      <ul class="list" id="cheers"></ul>
+      <label class="f" style="margin-top:12px">보내는 사람<input id="cheer-from" placeholder="이름"></label>
+      <label class="f">응원 한마디<textarea id="cheer-text" placeholder="휘민아, 오늘도 잘 버티고 있지?"></textarea></label>
+      <button class="btn sm" data-act="addCheer">응원 남기기</button>
+    </div>
+
+    <h2>고비 넘기는 팁</h2>
+    <div id="tips"></div>
+
+    <h2>도움 받을 수 있는 곳</h2>
+    <div class="panel help">
+      <p><b>금연상담전화</b> <a href="tel:1544-9030">1544-9030</a><br><span class="muted">전문 상담사가 무료로 상담해줘요.</span></p>
+      <p style="margin:0"><b>보건소 금연클리닉</b><br><span class="muted">가까운 보건소에서 상담과 금연 보조 서비스를 무료로 받을 수 있어요. 의료기관 상담도 도움이 돼요.</span></p>
+    </div>
+  </section>
+
+  <!-- 설정 -->
+  <section id="tab-set" class="tab">
+    <h2>설정</h2>
+    <div class="panel" id="settings"></div>
+    <h2>데이터</h2>
+    <p class="muted">기록은 이 기기의 브라우저에만 저장돼요. 기기를 바꾸기 전엔 꼭 내보내기를 해두세요.</p>
+    <div class="row" style="margin-top:0">
+      <button class="btn ghost sm" data-act="export">내보내기</button>
+      <label class="btn ghost sm" style="margin:0">가져오기<input type="file" id="imp" accept="application/json" hidden></label>
+      <button class="btn ghost sm" data-act="theme">화면 모드 바꾸기</button>
+      <button class="btn danger sm" data-act="reset">전체 초기화</button>
+    </div>
+    <p class="foot">건강 정보는 일반적인 참고용이며 의학적 진단·처방을 대신하지 않아요.</p>
+  </section>
+</div>
+
+<button class="sosbtn" data-act="sos">🔥 담배 땡겨요</button>
+
+<nav class="bar"><div class="in">
+  <button data-tab="home" class="on"><span>🏠</span>홈</button>
+  <button data-tab="health"><span>🫁</span>건강</button>
+  <button data-tab="log"><span>📝</span>기록</button>
+  <button data-tab="mind"><span>💌</span>마음</button>
+  <button data-tab="set"><span>⚙️</span>설정</button>
+</div></nav>
+
+<!-- SOS -->
+<div class="overlay" id="sos"><div class="wrap">
+  <p class="muted" style="text-align:center;margin:0">갈망은 보통 몇 분 안에 잦아들어요. 10분만 버텨봐요.</p>
+  <p class="sos-t" id="sos-t">10:00</p>
+  <div class="breath" id="breath">들이쉬기</div>
+  <p class="muted" style="text-align:center">4초 들이쉬고, 6초 내쉬어요.</p>
+  <div class="card2" id="sos-act"></div>
+  <div class="card2" id="sos-reason" style="border-color:var(--teal)"></div>
+  <div class="row" style="justify-content:center">
+    <button class="btn ghost sm" data-act="sosShuffle">다른 방법 보기</button>
+    <a class="btn ghost sm" href="tel:1544-9030" style="text-decoration:none">상담전화 1544-9030</a>
+  </div>
+  <div class="row" style="justify-content:center;margin-top:22px">
+    <button class="btn" data-act="sosWin">참았어요 🎉</button>
+    <button class="btn ghost" data-act="sosLose">결국 피웠어요</button>
+  </div>
+  <p class="row" style="justify-content:center;margin-top:14px"><button class="btn ghost sm" data-act="sosClose">닫기</button></p>
+</div></div>
+
+<!-- 시작 설정 -->
+<div class="overlay" id="setup"><div class="wrap">
+  <h2 style="margin-top:20px">김휘민의 금연 도전기</h2>
+  <p class="muted">처음이니까 몇 가지만 알려줘요. 나중에 설정에서 바꿀 수 있어요.</p>
+  <div class="panel" id="setup-form"></div>
+</div></div>
+
+<div class="modal" id="modal"><div class="box" id="modal-box"></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+'use strict';
+var KEY='hwimin-quit-v1';
+var MIN=60e3,HR=3600e3,DAY=86400e3;
+
+/* ---------- 저장소 (막혀 있어도 동작) ---------- */
+var mem=null;
+function load(){
+  var d={name:'휘민',quitAt:null,perDay:10,packPrice:4500,perPack:20,goalName:'',goalPrice:0,
+    reasons:[],cheers:[],checkins:{},slips:[],sos:[],bestMs:0,seen:[],theme:''};
+  try{var r=localStorage.getItem(KEY);if(r){return Object.assign(d,JSON.parse(r));}}catch(e){}
+  return mem?Object.assign(d,mem):d;
+}
+var S=load();
+function save(){mem=JSON.parse(JSON.stringify(S));try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+
+/* ---------- 유틸 ---------- */
+var $=function(s){return document.querySelector(s)};
+var $$=function(s){return Array.prototype.slice.call(document.querySelectorAll(s))};
+function esc(s){return String(s).replace(/[&<>"']/g,function(c){return({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]})}
+function p2(n){return String(n).padStart(2,'0')}
+function dayKey(d){return d.getFullYear()+'-'+p2(d.getMonth()+1)+'-'+p2(d.getDate())}
+function toInput(d){return dayKey(d)+'T'+p2(d.getHours())+':'+p2(d.getMinutes())}
+function won(n){return '₩'+Math.floor(n).toLocaleString('ko-KR')}
+function elapsed(){return S.quitAt?Math.max(0,Date.now()-new Date(S.quitAt).getTime()):0}
+function fmtMin(m){
+  m=Math.floor(m);
+  var d=Math.floor(m/1440),h=Math.floor(m%1440/60),mm=m%60;
+  if(d>0)return d+'일 '+h+'시간';
+  if(h>0)return h+'시간 '+mm+'분';
+  return mm+'분';
+}
+function fmtLeft(ms){
+  var s=Math.ceil(ms/1000),d=Math.floor(s/86400),h=Math.floor(s%86400/3600),m=Math.floor(s%3600/60);
+  if(d>0)return d+'일 '+h+'시간';
+  if(h>0)return h+'시간 '+m+'분';
+  if(m>0)return m+'분 '+(s%60)+'초';
+  return s+'초';
+}
+function toast(t,ms){
+  var el=$('#toast');el.textContent=t;el.classList.add('on');
+  clearTimeout(toast._t);toast._t=setTimeout(function(){el.classList.remove('on')},ms||2600);
+}
+function modal(title,body,actions){
+  var box=$('#modal-box');
+  box.innerHTML='<h3>'+esc(title)+'</h3>'+body+'<div class="row"></div>';
+  var row=box.querySelector('.row');
+  actions.forEach(function(a){
+    var b=document.createElement('button');
+    b.className='btn '+(a.cls||'');b.textContent=a.label;
+    b.onclick=function(){if(!a.keep)closeModal();if(a.fn)a.fn();};
+    row.appendChild(b);
+  });
+  $('#modal').classList.add('on');
+}
+function closeModal(){$('#modal').classList.remove('on')}
+
+/* ---------- 데이터 ---------- */
+var MILESTONES=[
+ {ms:20*MIN,t:'20분',d:'심박수와 혈압이 정상 범위로 돌아와요.'},
+ {ms:8*HR,t:'8시간',d:'혈중 일산화탄소가 줄고 산소량이 늘어요.'},
+ {ms:24*HR,t:'24시간',d:'심장마비 위험이 낮아지기 시작해요.'},
+ {ms:48*HR,t:'2일',d:'후각과 미각이 돌아오기 시작해요. 니코틴이 몸에서 거의 빠져나가요.'},
+ {ms:72*HR,t:'3일',d:'기관지가 풀리면서 숨쉬기가 한결 편해져요. 가장 힘든 고비를 넘는 시기예요.'},
+ {ms:14*DAY,t:'2주',d:'혈액순환이 좋아지고 계단 오르기가 덜 힘들어져요.'},
+ {ms:30*DAY,t:'1개월',d:'기침과 숨 가쁨이 눈에 띄게 줄어들어요.'},
+ {ms:90*DAY,t:'3개월',d:'폐 기능이 좋아지고 운동할 때 숨이 덜 차요.'},
+ {ms:365*DAY,t:'1년',d:'관상동맥 질환 위험이 계속 흡연하는 사람의 절반 수준으로 낮아져요.'},
+ {ms:5*365*DAY,t:'5년',d:'뇌졸중 위험이 비흡연자에 가까워지기 시작해요.'},
+ {ms:10*365*DAY,t:'10년',d:'폐암 사망 위험이 계속 흡연하는 사람의 절반 수준이 돼요.'}
+];
+function stats(){
+  var e=elapsed(),days=e/DAY,cigs=days*S.perDay;
+  return {ms:e,days:days,cigs:cigs,
+    money:cigs/Math.max(1,S.perPack)*S.packPrice,
+    life:cigs*11,
+    sos:S.sos.filter(function(x){return x.ok}).length,
+    checkins:Object.keys(S.checkins).length,
+    best:Math.max(S.bestMs,e)};
+}
+var BADGES=[
+ {e:'⏱️',n:'첫 1시간',d:'1시간 경과',f:function(s){return s.ms>=HR}},
+ {e:'🌅',n:'하루 완성',d:'24시간',f:function(s){return s.ms>=DAY}},
+ {e:'🔥',n:'3일 고비',d:'72시간',f:function(s){return s.ms>=3*DAY}},
+ {e:'🗓️',n:'일주일',d:'7일',f:function(s){return s.ms>=7*DAY}},
+ {e:'🌿',n:'2주',d:'14일',f:function(s){return s.ms>=14*DAY}},
+ {e:'🌙',n:'한 달',d:'30일',f:function(s){return s.ms>=30*DAY}},
+ {e:'💯',n:'100일',d:'100일',f:function(s){return s.ms>=100*DAY}},
+ {e:'🎂',n:'1주년',d:'365일',f:function(s){return s.ms>=365*DAY}},
+ {e:'☕',n:'1만원 아낌',d:'₩10,000',f:function(s){return s.money>=1e4}},
+ {e:'🍗',n:'5만원 아낌',d:'₩50,000',f:function(s){return s.money>=5e4}},
+ {e:'🎧',n:'10만원 아낌',d:'₩100,000',f:function(s){return s.money>=1e5}},
+ {e:'✈️',n:'50만원 아낌',d:'₩500,000',f:function(s){return s.money>=5e5}},
+ {e:'🛡️',n:'유혹 10번 이김',d:'SOS 극복 10회',f:function(s){return s.sos>=10}},
+ {e:'📝',n:'기록왕',d:'7일 체크인',f:function(s){return s.checkins>=7}},
+ {e:'🦾',n:'다시 일어남',d:'실수 뒤 24시간',f:function(s){return S.slips.length>0&&s.ms>=DAY}}
+];
+var QUOTES=[
+ '오늘 하루만 이기면 돼요. 내일의 휘민이는 오늘의 휘민이에게 고마워할 거예요.',
+ '갈망은 파도 같아요. 올라왔다가 반드시 내려가요.',
+ '한 개비의 유혹은 길어야 10분이에요. 그동안 물 한 잔 마셔요.',
+ '담배를 안 피운 하루하루가 쌓여서 새로운 휘민이가 돼요.',
+ '지금 아낀 돈으로 뭘 할지 한 번 떠올려봐요.',
+ '못 참겠는 순간에 이 앱을 열었다는 것 자체가 이미 이기고 있는 거예요.',
+ '완벽하지 않아도 괜찮아요. 포기하지만 않으면 돼요.',
+ '숨이 편해지는 걸 느껴봐요. 몸이 이미 달라지고 있어요.',
+ '오늘 거절한 담배는 내일 더 쉽게 거절돼요.',
+ '식후에는 바로 양치부터. 습관의 연결고리를 끊어봐요.',
+ '스트레스 받을 땐 담배 대신 5분 걷기. 머리가 더 잘 정리돼요.',
+ '휘민이를 응원하는 친구들이 있다는 걸 잊지 마요.',
+ '어제보다 하루 더. 그게 전부예요.',
+ '술자리에서도 흔들리지 않는 날, 진짜 자유를 느낄 거예요.',
+ '담배 없이도 웃을 수 있다는 걸 오늘 증명해봐요.'
+];
+var ACTS=[
+ '찬물 한 컵을 천천히 마셔요.','지금 바로 양치를 해요.','스쿼트 20개를 해요.','밖으로 나가 5분만 걸어요.',
+ '무설탕 껌이나 사탕을 입에 넣어요.','친구에게 "나 지금 담배 땡겨" 하고 메시지를 보내요.',
+ '손을 씻고 세수를 해요.','스트레칭을 1분 해요.','좋아하는 노래를 한 곡 끝까지 들어요.',
+ '빨대나 이쑤시개를 입에 물고 심호흡을 해요.','아낀 돈으로 뭘 살지 검색해봐요.'
+];
+var TIPS=[
+ ['처음 3일이 제일 힘들어요','니코틴이 빠져나가는 시기라 가장 예민해요. 이 시기엔 술자리·흡연 장소를 피하고 물을 많이 마셔요.'],
+ ['식후 담배가 생각날 때','밥 먹자마자 일어나서 양치하거나 짧게 산책해요. 식사 후 루틴을 바꾸는 게 핵심이에요.'],
+ ['술자리에서','금연 초반엔 술자리를 줄이는 게 안전해요. 가야 한다면 친구들에게 미리 선언하고 흡연 구역에 같이 나가지 않아요.'],
+ ['스트레스 받을 때','4초 들이쉬고 6초 내쉬는 호흡을 5번 해봐요. 이 앱의 SOS 버튼이 도와줘요.'],
+ ['살찔까 걱정될 때','입이 심심할 땐 당근·오이·견과류를 준비해요. 처음 몇 달은 금연이 우선이에요.'],
+ ['한 개비 피웠다면','실패가 아니라 정보예요. 무엇 때문에 피웠는지 기록하고 다음엔 어떻게 피할지 정해요. 바로 다시 시작하면 돼요.']
+];
+var TRIG=['식후','커피','술','스트레스','심심할 때','친구와 있을 때','운전','일하다 쉴 때'];
+var MOODS=[['😄','좋음'],['🙂','괜찮음'],['😐','보통'],['😣','힘듦'],['😡','예민함']];
+
+/* ---------- 렌더링: 홈 ---------- */
+var C=2*Math.PI*96;
+function tick(){
+  if(!S.quitAt)return;
+  var e=elapsed(),s=stats();
+  var d=Math.floor(e/DAY),r=e%DAY;
+  $('#d-days').textContent=d;
+  $('#d-clock').textContent=p2(Math.floor(r/HR))+':'+p2(Math.floor(r%HR/MIN))+':'+p2(Math.floor(r%MIN/1000));
+  var next=null,prev=0;
+  for(var i=0;i<MILESTONES.length;i++){if(MILESTONES[i].ms>e){next=MILESTONES[i];break;}prev=MILESTONES[i].ms;}
+  var p=next?(e-prev)/(next.ms-prev):1;
+  $('#ring-bar').style.strokeDashoffset=C*(1-Math.min(1,p));
+  $('#h-next').innerHTML=next?'다음 회복까지 <b>'+fmtLeft(next.ms-e)+'</b><br>'+esc(next.t)+': '+esc(next.d):'모든 회복 단계를 지났어요. 정말 대단해요!';
+  $('#ledger').innerHTML=
+    '<div><dt>안 피운 담배</dt><dd>'+Math.floor(s.cigs).toLocaleString('ko-KR')+'개비</dd></div>'+
+    '<div><dt>아낀 돈</dt><dd>'+won(s.money)+'</dd></div>'+
+    '<div><dt>되찾은 수명 (추정)</dt><dd>'+fmtMin(s.life)+'</dd></div>'+
+    '<div><dt>최장 기록</dt><dd>'+fmtMin(s.best/MIN)+'</dd></div>';
+  if(S.goalName&&S.goalPrice>0){
+    var pc=Math.min(100,s.money/S.goalPrice*100);
+    $('#goal').innerHTML='<b>🎯 '+esc(S.goalName)+'</b> <span class="muted">'+won(s.money)+' / '+won(S.goalPrice)+'</span><div class="meter"><i style="width:'+pc.toFixed(1)+'%"></i></div>'+
+      '<span class="small muted">'+(pc>=100?'목표 달성! 이제 사도 돼요 🎉':'앞으로 '+won(S.goalPrice-s.money)+' 남았어요.')+'</span>';
+  }else{$('#goal').innerHTML='<span class="small muted">설정에서 아낀 돈으로 살 목표를 정해보세요. 동기부여에 효과가 커요.</span>';}
+  document.title=d+'일째 · 김휘민의 금연 도전기';
+  $('#top-sub').textContent=S.name+' D+'+d;
+  checkBadges();
+}
+function renderHomeStatic(){
+  var doy=Math.floor((Date.now()-new Date(new Date().getFullYear(),0,0))/DAY);
+  $('#quote').textContent=QUOTES[doy%QUOTES.length];
+  var c=S.cheers;
+  $('#cheer').innerHTML=c.length?'💌 '+esc(c[Math.floor(Math.random()*c.length)].text)+' <span>— '+esc(c[0]&&c[Math.floor(Math.random()*c.length)].from||'친구')+'</span>':'마음 탭에서 친구들의 응원 메시지를 남길 수 있어요.';
+  var latest=c.length?c[Math.floor(Math.random()*c.length)]:null;
+  if(latest)$('#cheer').innerHTML='💌 '+esc(latest.text)+' <span>— '+esc(latest.from||'친구')+'</span>';
+  $('#h-who').textContent=S.name+'의 마지막 담배 이후';
+}
+var toastedBadge=false;
+function checkBadges(){
+  var s=stats(),fresh=[];
+  BADGES.forEach(function(b){if(b.f(s)&&S.seen.indexOf(b.n)<0){S.seen.push(b.n);fresh.push(b);}});
+  if(fresh.length){save();if(S.seen.length>fresh.length||toastedBadge||true)toast('새 배지 '+fresh[0].e+' '+fresh[0].n+(fresh.length>1?' 외 '+(fresh.length-1)+'개':''),3600);}
+}
+
+/* ---------- 건강 ---------- */
+function renderHealth(){
+  var e=elapsed(),curSet=false;
+  $('#timeline').innerHTML=MILESTONES.map(function(m){
+    var done=e>=m.ms,cls=done?'done':(!curSet?'cur':'future');
+    if(!done)curSet=true;
+    var pr=Math.min(100,e/m.ms*100);
+    return '<li class="'+cls+'"><div class="t">'+esc(m.t)+(done?' ✓':'')+'</div><div class="small">'+esc(m.d)+'</div>'+
+      (done?'':'<div class="meter"><i style="width:'+pr.toFixed(1)+'%"></i></div>')+'</li>';
+  }).join('');
+  var s=stats();
+  $('#badges').innerHTML=BADGES.map(function(b){
+    return '<div class="badge '+(b.f(s)?'on':'')+'"><div class="e">'+b.e+'</div><b>'+esc(b.n)+'</b><small>'+esc(b.d)+'</small></div>';
+  }).join('');
+}
+
+/* ---------- 기록 ---------- */
+var CI=null;
+function renderLog(){
+  var k=dayKey(new Date());
+  CI=CI&&CI.k===k?CI:Object.assign({k:k,mood:-1,cravings:0,triggers:[],note:''},S.checkins[k]||{});
+  $('#checkin').innerHTML=
+   '<p class="muted" style="margin-bottom:8px">오늘 기분은 어때요?</p>'+
+   '<div class="moods">'+MOODS.map(function(m,i){return '<button data-act="mood" data-i="'+i+'" class="'+(CI.mood===i?'on':'')+'" aria-label="'+m[1]+'">'+m[0]+'</button>'}).join('')+'</div>'+
+   '<p class="muted" style="margin:16px 0 6px">오늘 담배 생각이 난 횟수</p>'+
+   '<div class="step"><button data-act="cr" data-v="-1" aria-label="줄이기">−</button><b>'+CI.cravings+'</b><button data-act="cr" data-v="1" aria-label="늘리기">+</button></div>'+
+   '<p class="muted" style="margin:16px 0 6px">어떤 상황이었나요?</p>'+
+   '<div class="chips">'+TRIG.map(function(t){return '<button class="chip '+(CI.triggers.indexOf(t)>=0?'on':'')+'" data-act="trig" data-t="'+esc(t)+'">'+esc(t)+'</button>'}).join('')+'</div>'+
+   '<label class="f" style="margin-top:16px">오늘 한 줄<textarea id="ci-note" placeholder="오늘 있었던 일, 느낌, 다짐 등">'+esc(CI.note)+'</textarea></label>'+
+   '<button class="btn" data-act="saveCI">체크인 저장</button>';
+  var now=new Date(),q=S.quitAt?new Date(S.quitAt):null,html='';
+  var slipDays={};S.slips.forEach(function(x){slipDays[dayKey(new Date(x.at))]=1});
+  for(var i=13;i>=0;i--){
+    var d=new Date(now.getFullYear(),now.getMonth(),now.getDate()-i),dk=dayKey(d),c=S.checkins[dk];
+    var pre=q&&new Date(d.getFullYear(),d.getMonth(),d.getDate(),23,59)<q&&!slipDays[dk];
+    html+='<div class="day '+(i===0?'today ':'')+(slipDays[dk]?'slip ':'')+(pre?'pre':'')+'">'+
+      '<span class="m">'+(c&&c.mood>=0?MOODS[c.mood][0]:(slipDays[dk]?'🚬':'·'))+'</span>'+(d.getMonth()+1)+'/'+d.getDate()+'</div>';
+  }
+  $('#strip').innerHTML=html;
+  var s=stats();
+  var totalCr=0;Object.keys(S.checkins).forEach(function(x){totalCr+=S.checkins[x].cravings||0});
+  $('#stats').innerHTML=
+    '<div><b>'+s.sos+'번</b><span>SOS로 유혹 이김</span></div>'+
+    '<div><b>'+totalCr+'번</b><span>담배 생각 기록</span></div>'+
+    '<div><b>'+s.checkins+'일</b><span>체크인한 날</span></div>'+
+    '<div><b>'+S.slips.length+'번</b><span>실수 (다시 일어남)</span></div>';
+  var cnt={};Object.keys(S.checkins).forEach(function(x){(S.checkins[x].triggers||[]).forEach(function(t){cnt[t]=(cnt[t]||0)+1})});
+  var top=Object.keys(cnt).sort(function(a,b){return cnt[b]-cnt[a]}).slice(0,3);
+  $('#triggers').innerHTML=top.length?top.map(function(t,i){return '<b style="color:var(--ink)">'+(i+1)+'위 '+esc(t)+'</b> ('+cnt[t]+'회)'}).join(' &nbsp; ')+'<br>이 상황에 미리 대비책을 정해두면 훨씬 쉬워져요.':'체크인에서 상황을 기록하면 나만의 위험 순간이 보여요.';
+  $('#slips').innerHTML=S.slips.length?S.slips.slice().reverse().map(function(x){
+    var dt=new Date(x.at);
+    return '<li><div>'+dt.getFullYear()+'.'+(dt.getMonth()+1)+'.'+dt.getDate()+' · '+fmtMin(x.afterMs/MIN)+' 지속<small>'+esc(x.note||'메모 없음')+'</small></div></li>';
+  }).join(''):'<li class="muted">아직 없어요. 앞으로도 없길 바라지만, 있어도 괜찮아요.</li>';
+}
+
+/* ---------- 마음 ---------- */
+function renderMind(){
+  $('#reasons').innerHTML=S.reasons.length?S.reasons.map(function(r,i){return '<li><span>'+esc(r)+'</span><button class="x" data-act="delReason" data-i="'+i+'" aria-label="삭제">✕</button></li>'}).join(''):'<li class="muted">끊어야 하는 이유를 적어두면 SOS 화면에서 보여드려요.</li>';
+  $('#cheers').innerHTML=S.cheers.length?S.cheers.slice().reverse().map(function(c,i){var idx=S.cheers.length-1-i;return '<li><div>'+esc(c.text)+'<small>— '+esc(c.from||'친구')+'</small></div><button class="x" data-act="delCheer" data-i="'+idx+'" aria-label="삭제">✕</button></li>'}).join(''):'<li class="muted">친구들이 남긴 응원이 여기에 쌓여요.</li>';
+  $('#tips').innerHTML=TIPS.map(function(t){return '<details><summary>'+esc(t[0])+'</summary><p>'+esc(t[1])+'</p></details>'}).join('');
+}
+
+/* ---------- 설정 ---------- */
+function fieldsHTML(){
+  return '<label class="f">이름<input id="f-name" value="'+esc(S.name)+'"></label>'+
+   '<label class="f">금연 시작 시각<input id="f-at" type="datetime-local" value="'+toInput(S.quitAt?new Date(S.quitAt):new Date())+'"></label>'+
+   '<label class="f">하루에 피우던 개비 수<input id="f-pd" type="number" min="1" max="100" value="'+S.perDay+'"></label>'+
+   '<label class="f">담배 한 갑 가격(원)<input id="f-pp" type="number" min="0" step="100" value="'+S.packPrice+'"></label>'+
+   '<label class="f">한 갑 개비 수<input id="f-pk" type="number" min="1" max="50" value="'+S.perPack+'"></label>'+
+   '<label class="f">아낀 돈으로 사고 싶은 것 (선택)<input id="f-gn" value="'+esc(S.goalName)+'" placeholder="예: 에어팟"></label>'+
+   '<label class="f">그 가격(원)<input id="f-gp" type="number" min="0" step="1000" value="'+(S.goalPrice||'')+'"></label>';
+}
+function readFields(){
+  var at=$('#f-at').value;
+  S.name=($('#f-name').value||'휘민').trim();
+  S.quitAt=at?new Date(at).toISOString():new Date().toISOString();
+  S.perDay=Math.max(1,+$('#f-pd').value||10);
+  S.packPrice=Math.max(0,+$('#f-pp').value||0);
+  S.perPack=Math.max(1,+$('#f-pk').value||20);
+  S.goalName=$('#f-gn').value.trim();
+  S.goalPrice=Math.max(0,+$('#f-gp').value||0);
+  save();
+}
+function renderSettings(){
+  $('#settings').innerHTML=fieldsHTML()+'<button class="btn" data-act="saveSet">저장</button>';
+}
+function showSetup(){
+  S.quitAt=null;
+  $('#setup-form').innerHTML=fieldsHTML()+'<button class="btn" data-act="start">도전 시작</button>';
+  $('#setup').classList.add('on');
+}
+
+/* ---------- SOS ---------- */
+var sosT=null,sosEnd=0;
+function sosAct(){$('#sos-act').innerHTML='<b>지금 해볼 것</b><br>'+esc(ACTS[Math.floor(Math.random()*ACTS.length)]);}
+function openSOS(){
+  sosEnd=Date.now()+10*MIN;sosAct();
+  $('#sos-reason').innerHTML='<b>내가 끊는 이유</b><br>'+(S.reasons.length?esc(S.reasons[Math.floor(Math.random()*S.reasons.length)]):'마음 탭에서 이유를 적어두면 여기에 보여요. 지금까지 '+fmtMin(elapsed()/MIN)+' 동안 버텼어요.');
+  $('#sos').classList.add('on');
+  clearInterval(sosT);
+  var br=$('#breath'),t0=Date.now();
+  br.style.animation='none';void br.offsetWidth;br.style.animation='';
+  sosT=setInterval(function(){
+    var left=Math.max(0,sosEnd-Date.now()),s=Math.ceil(left/1000);
+    $('#sos-t').textContent=p2(Math.floor(s/60))+':'+p2(s%60);
+    var ph=((Date.now()-t0)/1000)%10;
+    br.textContent=ph<4?'들이쉬기':'내쉬기';
+    if(left<=0){clearInterval(sosT);$('#sos-t').textContent='00:00';toast('10분을 버텼어요! 대단해요 👏',3500);}
+  },200);
+}
+function closeSOS(){clearInterval(sosT);$('#sos').classList.remove('on');}
+
+/* ---------- 실수 ---------- */
+function slipFlow(){
+  modal('괜찮아요, 다시 시작하면 돼요',
+   '<p class="muted">한 개비가 지금까지의 노력을 지우지는 않아요. 무슨 일이 있었는지 적어두면 다음에 피하는 데 도움이 돼요.</p><label class="f"><textarea id="slip-note" placeholder="예: 회식 자리에서 친구가 권해서"></textarea></label>',
+   [{label:'취소',cls:'ghost'},{label:'타이머 새로 시작',cls:'danger',fn:function(){
+     var e=elapsed();
+     S.bestMs=Math.max(S.bestMs,e);
+     S.slips.push({at:new Date().toISOString(),afterMs:e,note:($('#slip-note')||{}).value||''});
+     S.quitAt=new Date().toISOString();save();closeSOS();renderAll();
+     toast('최장 기록 '+fmtMin(S.bestMs/MIN)+'! 이번엔 그걸 넘어봐요 💪',3800);
+   }}]);
+  setTimeout(function(){var n=$('#slip-note');if(n)n.focus();},50);
+}
+
+/* ---------- 액션 ---------- */
+var A={
+ sos:openSOS,sosClose:closeSOS,sosShuffle:sosAct,
+ sosWin:function(){S.sos.push({at:new Date().toISOString(),ok:true});save();closeSOS();renderAll();toast('유혹을 이겼어요! 총 '+stats().sos+'번째 🎉',3500);},
+ sosLose:slipFlow,slip:slipFlow,
+ share:function(){
+   var s=stats(),txt='🫁 '+S.name+'의 금연 '+Math.floor(s.days)+'일째! 지금까지 '+Math.floor(s.cigs)+'개비를 안 피우고 '+won(s.money)+'을 아꼈어요. 응원 한마디 부탁해요 💌';
+   if(navigator.share){navigator.share({text:txt}).catch(function(){});}
+   else if(navigator.clipboard){navigator.clipboard.writeText(txt).then(function(){toast('복사했어요. 단톡방에 붙여넣어요!')},function(){modal('공유 문구','<p>'+esc(txt)+'</p>',[{label:'닫기'}])});}
+   else modal('공유 문구','<p>'+esc(txt)+'</p>',[{label:'닫기'}]);
+ },
+ mood:function(b){CI.mood=+b.dataset.i;CI.note=$('#ci-note').value;renderLog();},
+ cr:function(b){CI.cravings=Math.max(0,CI.cravings+ +b.dataset.v);CI.note=$('#ci-note').value;renderLog();},
+ trig:function(b){var t=b.dataset.t,i=CI.triggers.indexOf(t);if(i>=0)CI.triggers.splice(i,1);else CI.triggers.push(t);CI.note=$('#ci-note').value;renderLog();},
+ saveCI:function(){CI.note=$('#ci-note').value;var o=Object.assign({},CI);delete o.k;S.checkins[CI.k]=o;save();renderLog();toast('오늘 체크인을 저장했어요 ✅');},
+ addReason:function(){var v=$('#reason-in').value.trim();if(!v)return;S.reasons.push(v);save();renderMind();},
+ delReason:function(b){S.reasons.splice(+b.dataset.i,1);save();renderMind();},
+ addCheer:function(){var t=$('#cheer-text').value.trim();if(!t)return;S.cheers.push({from:$('#cheer-from').value.trim()||'친구',text:t,at:new Date().toISOString()});save();renderMind();renderHomeStatic();toast('응원을 남겼어요 💌');},
+ delCheer:function(b){S.cheers.splice(+b.dataset.i,1);save();renderMind();renderHomeStatic();},
+ start:function(){readFields();$('#setup').classList.remove('on');renderAll();toast('도전 시작! 응원할게요 🔥');},
+ saveSet:function(){readFields();renderAll();toast('저장했어요');},
+ theme:function(){var cur=document.documentElement.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');S.theme=cur==='dark'?'light':'dark';applyTheme();save();},
+ export:function(){
+   try{
+     var b=new Blob([JSON.stringify(S,null,2)],{type:'application/json'}),a=document.createElement('a');
+     a.href=URL.createObjectURL(b);a.download='hwimin-quit-backup.json';document.body.appendChild(a);a.click();a.remove();
+   }catch(e){toast('내보내기를 지원하지 않는 환경이에요');}
+ },
+ reset:function(){modal('전체 초기화','<p class="muted">모든 기록이 사라져요. 정말 처음부터 다시 시작할까요?</p>',[{label:'취소',cls:'ghost'},{label:'초기화',cls:'danger',fn:function(){try{localStorage.removeItem(KEY);}catch(e){}mem=null;S=load();save();showSetup();}}]);}
+};
+document.addEventListener('click',function(e){
+  var b=e.target.closest('[data-act]');if(b&&A[b.dataset.act]){A[b.dataset.act](b);return;}
+  var t=e.target.closest('[data-tab]');if(t)showTab(t.dataset.tab);
+  if(e.target.id==='modal')closeModal();
+});
+$('#imp').addEventListener('change',function(e){
+  var f=e.target.files[0];if(!f)return;var r=new FileReader();
+  r.onload=function(){try{S=Object.assign(load(),JSON.parse(r.result));save();renderAll();toast('가져왔어요');}catch(x){toast('파일을 읽을 수 없어요');}};
+  r.readAsText(f);
+});
+
+/* ---------- 탭 / 초기화 ---------- */
+var R={home:renderHomeStatic,health:renderHealth,log:renderLog,mind:renderMind,set:renderSettings};
+function showTab(n){
+  $$('.tab').forEach(function(s){s.classList.toggle('on',s.id==='tab-'+n)});
+  $$('nav.bar button').forEach(function(b){b.classList.toggle('on',b.dataset.tab===n)});
+  R[n]();window.scrollTo(0,0);
+}
+function currentTab(){var t=$('.tab.on');return t?t.id.replace('tab-',''):'home';}
+function renderAll(){renderHomeStatic();tick();R[currentTab()]();}
+function applyTheme(){if(S.theme)document.documentElement.setAttribute('data-theme',S.theme);else document.documentElement.removeAttribute('data-theme');}
+
+applyTheme();
+if(!S.quitAt)showSetup();else renderAll();
+setInterval(function(){tick();if(currentTab()==='health'&&new Date().getSeconds()===0)renderHealth();},1000);
+})();
+</script>
+</body>
+</html>
